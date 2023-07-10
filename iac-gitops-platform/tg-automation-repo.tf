@@ -3,6 +3,7 @@ module "tg_automation_repo" {
 
   repo_name         = var.tg_automation_repo_name
   description       = var.tg_automation_repo_description
+  github_teams      = var.tg_automation_github_teams
   codeowners_file   = var.tg_automation_repo_codeowners_file
   user_name         = var.tg_automation_user_name
   role_name         = var.tg_automation_role_name

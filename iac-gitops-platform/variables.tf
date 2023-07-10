@@ -21,16 +21,26 @@ variable "tf_modules_repo_description" {
   default     = "Collection of custom Terraform modules"
 }
 
+variable "tf_modules_github_teams" {
+  description = "List of teams to give Write access to the Terraform modules repository to"
+  type        = set(string)
+}
+
 variable "tg_actions_repo_name" {
-  description = "Name of the repository to create"
+  description = "Name of the repository to create for Terragrunt actions"
   type        = string
   default     = "terragrunt-actions"
 }
 
 variable "tg_actions_repo_description" {
-  description = "Description of the repository"
+  description = "Description of the repository for Terragrunt actions"
   type        = string
   default     = "Workflows to manage infrasturcture using Terragrunt"
+}
+
+variable "tg_actions_github_teams" {
+  description = "List of teams to give Write access to the Terragrunt actions repository to"
+  type        = set(string)
 }
 
 variable "tg_actions_repo_codeowners_file" {
@@ -48,6 +58,11 @@ variable "tg_automation_repo_description" {
   description = "Description of the repository to create for the Terragrunt automation"
   type        = string
   default     = "Platform to manage cloud infrastructure"
+}
+
+variable "tg_automation_github_teams" {
+  description = "List of teams to give Write access to the Terragrunt automation repository to"
+  type        = set(string)
 }
 
 variable "tg_automation_repo_codeowners_file" {
