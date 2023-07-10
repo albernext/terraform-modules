@@ -38,6 +38,7 @@ It also creates an IAM user to be used by Terragrunt in the GH Actions workflows
 | [github_repository_file.pr_template](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository_file) | resource |
 | [github_repository_file.terragrunt_hcl](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository_file) | resource |
 | [github_repository_file.terragrunt_workflow](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/repository_file) | resource |
+| [github_team_repository.this](https://registry.terraform.io/providers/integrations/github/latest/docs/resources/team_repository) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
@@ -48,6 +49,7 @@ It also creates an IAM user to be used by Terragrunt in the GH Actions workflows
 | <a name="input_codeowners_file"></a> [codeowners\_file](#input\_codeowners\_file) | CODEOWNERS file for the GitHub repository | `string` | n/a | yes |
 | <a name="input_description"></a> [description](#input\_description) | Description of the repository | `string` | n/a | yes |
 | <a name="input_github_org"></a> [github\_org](#input\_github\_org) | Name of the GitHub organization where the repositories are stored | `string` | n/a | yes |
+| <a name="input_github_teams"></a> [github\_teams](#input\_github\_teams) | List of teams to give Write access to the repository to | `set(string)` | n/a | yes |
 | <a name="input_locks_table_name"></a> [locks\_table\_name](#input\_locks\_table\_name) | Name of the DynamoDB table to create to be used as Terraform locks table | `string` | n/a | yes |
 | <a name="input_repo_name"></a> [repo\_name](#input\_repo\_name) | Name of the repository to create | `string` | n/a | yes |
 | <a name="input_role_name"></a> [role\_name](#input\_role\_name) | Name of the role assumed by Terragrunt in the workflow | `string` | n/a | yes |

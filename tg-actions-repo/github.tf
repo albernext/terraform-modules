@@ -31,6 +31,15 @@ resource "github_branch_protection" "main" {
   push_restrictions = []
 }
 
+resource "github_team_repository" "this" {
+  for_each = var.github_teams
+
+  repository = github_repository.this.name
+
+  team_id    = each.key
+  permission = "push"
+}
+
 resource "github_repository_file" "codeowners" {
   repository          = github_repository.this.name
   branch              = "main"
