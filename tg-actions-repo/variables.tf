@@ -37,3 +37,8 @@ variable "github_token" {
   description = "GitHub personal access token used to run Terragrunt"
   type        = string
 }
+
+variable "infracost_api_key" {
+  description = "Infracost API key used to run Terragrunt"
+  type        = string
+}

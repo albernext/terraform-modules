@@ -58,6 +58,12 @@ resource "github_actions_secret" "github_token" {
   plaintext_value = var.github_token
 }
 
+resource "github_actions_secret" "infracost_api_key" {
+  repository      = github_repository.this.name
+  secret_name     = "INFRACOST_API_KEY"
+  plaintext_value = var.infracost_api_key
+}
+
 resource "github_actions_secret" "ssh_private_key" {
   repository      = github_repository.this.name
   secret_name     = "SSH_PRIVATE_KEY"
