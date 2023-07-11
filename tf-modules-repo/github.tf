@@ -44,7 +44,7 @@ resource "github_team_repository" "this" {
 resource "github_repository_deploy_key" "this" {
   repository = github_repository.this.name
 
-  title      = "Terragrunt actions"
-  key        = var.deploy_key
-  read_only  = true
+  title     = "Terragrunt actions"
+  key       = var.deploy_key
+  read_only = true
 }

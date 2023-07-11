@@ -20,15 +20,15 @@ variable "codeowners_file" {
 
 variable "aws_access_key_id" {
   description = "ID of the access key of the IAM user used to run Terragrunt"
-  type = string
+  type        = string
 }
 
 variable "aws_secret_access_key" {
   description = "Secret of the access key of the IAM user used to run Terragrunt"
-  type = string
+  type        = string
 }
 
 variable "ssh_private_key" {
   description = "SSH private key to be able to access Terraform modules repo"
-  type = string
+  type        = string
 }
