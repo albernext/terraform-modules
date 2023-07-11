@@ -10,12 +10,14 @@ Deploys full IaC GitOps platform.
 |------|---------|
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.67.0 |
 | <a name="requirement_github"></a> [github](#requirement\_github) | ~> 5.29.0 |
+| <a name="requirement_tls"></a> [tls](#requirement\_tls) | ~> 4.0.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 4.67.0 |
+| <a name="provider_tls"></a> [tls](#provider\_tls) | 4.0.4 |
 
 ## Modules
 
@@ -30,6 +32,7 @@ Deploys full IaC GitOps platform.
 
 | Name | Type |
 |------|------|
+| [tls_private_key.this](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
@@ -37,13 +40,19 @@ Deploys full IaC GitOps platform.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | AWS region to use | `string` | `"eu-west-1"` | no |
 | <a name="input_github_org"></a> [github\_org](#input\_github\_org) | Name of the GitHub organization where the repositories are stored | `string` | n/a | yes |
+| <a name="input_github_token"></a> [github\_token](#input\_github\_token) | GitHub personal access token used to run Terragrunt | `string` | n/a | yes |
+| <a name="input_infracost_api_key"></a> [infracost\_api\_key](#input\_infracost\_api\_key) | Infracost API key used to run Terragrunt | `string` | n/a | yes |
 | <a name="input_initial_deploy"></a> [initial\_deploy](#input\_initial\_deploy) | Set to true if deploying module for the first time; change to false afterwards | `bool` | n/a | yes |
+| <a name="input_tf_modules_github_teams"></a> [tf\_modules\_github\_teams](#input\_tf\_modules\_github\_teams) | List of teams to give Write access to the Terraform modules repository to | `set(string)` | n/a | yes |
 | <a name="input_tf_modules_repo_description"></a> [tf\_modules\_repo\_description](#input\_tf\_modules\_repo\_description) | Description of the repository for Terraform modules | `string` | `"Collection of custom Terraform modules"` | no |
 | <a name="input_tf_modules_repo_name"></a> [tf\_modules\_repo\_name](#input\_tf\_modules\_repo\_name) | Name of the repository to create for Terraform modules | `string` | `"terraform-modules"` | no |
+| <a name="input_tg_actions_github_teams"></a> [tg\_actions\_github\_teams](#input\_tg\_actions\_github\_teams) | List of teams to give Write access to the Terragrunt actions repository to | `set(string)` | n/a | yes |
 | <a name="input_tg_actions_repo_codeowners_file"></a> [tg\_actions\_repo\_codeowners\_file](#input\_tg\_actions\_repo\_codeowners\_file) | CODEOWNERS file for the GitHub repository | `string` | n/a | yes |
-| <a name="input_tg_actions_repo_description"></a> [tg\_actions\_repo\_description](#input\_tg\_actions\_repo\_description) | Description of the repository | `string` | `"Workflows to manage infrasturcture using Terragrunt"` | no |
-| <a name="input_tg_actions_repo_name"></a> [tg\_actions\_repo\_name](#input\_tg\_actions\_repo\_name) | Name of the repository to create | `string` | `"terragrunt-actions"` | no |
+| <a name="input_tg_actions_repo_description"></a> [tg\_actions\_repo\_description](#input\_tg\_actions\_repo\_description) | Description of the repository for Terragrunt actions | `string` | `"Workflows to manage infrasturcture using Terragrunt"` | no |
+| <a name="input_tg_actions_repo_name"></a> [tg\_actions\_repo\_name](#input\_tg\_actions\_repo\_name) | Name of the repository to create for Terragrunt actions | `string` | `"terragrunt-actions"` | no |
+| <a name="input_tg_automation_github_teams"></a> [tg\_automation\_github\_teams](#input\_tg\_automation\_github\_teams) | List of teams to give Write access to the Terragrunt automation repository to | `set(string)` | n/a | yes |
 | <a name="input_tg_automation_locks_table_name"></a> [tg\_automation\_locks\_table\_name](#input\_tg\_automation\_locks\_table\_name) | Name of the DynamoDB table to create to be used as Terraform locks table | `string` | `"tf-locks"` | no |
 | <a name="input_tg_automation_repo_codeowners_file"></a> [tg\_automation\_repo\_codeowners\_file](#input\_tg\_automation\_repo\_codeowners\_file) | CODEOWNERS file for the GitHub repository | `string` | n/a | yes |
 | <a name="input_tg_automation_repo_description"></a> [tg\_automation\_repo\_description](#input\_tg\_automation\_repo\_description) | Description of the repository to create for the Terragrunt automation | `string` | `"Platform to manage cloud infrastructure"` | no |

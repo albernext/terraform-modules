@@ -62,4 +62,6 @@ It also creates an IAM user to be used by Terragrunt in the GH Actions workflows
 
 | Name | Description |
 |------|-------------|
+| <a name="output_access_key_id"></a> [access\_key\_id](#output\_access\_key\_id) | Access key ID for the user |
 | <a name="output_iam_user_arn"></a> [iam\_user\_arn](#output\_iam\_user\_arn) | ARN of the IAM user |
+| <a name="output_secret_access_key"></a> [secret\_access\_key](#output\_secret\_access\_key) | Secret of the access key for the user |
