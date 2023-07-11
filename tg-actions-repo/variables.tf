@@ -27,3 +27,8 @@ variable "aws_secret_access_key" {
   description = "Secret of the access key of the IAM user used to run Terragrunt"
   type = string
 }
+
+variable "ssh_private_key" {
+  description = "SSH private key to be able to access Terraform modules repo"
+  type = string
+}
