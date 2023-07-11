@@ -17,3 +17,13 @@ variable "codeowners_file" {
   description = "CODEOWNERS file for the GitHub repository"
   type        = string
 }
+
+variable "aws_access_key_id" {
+  description = "ID of the access key of the IAM user used to run Terragrunt"
+  type = string
+}
+
+variable "aws_secret_access_key" {
+  description = "Secret of the access key of the IAM user used to run Terragrunt"
+  type = string
+}
