@@ -6,8 +6,8 @@ module "iam_assumable_role_custom" {
 
   trusted_role_arns = [var.initial_deploy ? var.trusted_user_arn : module.tg_automation_repo.iam_user_arn]
 
-  role_name        = "terragrunt-role"
-  role_description = "Role assumed by terragrunt-user to manage resources in this AWS account"
+  role_name        = var.tg_automation_role_name
+  role_description = "Role assumed by ${var.tg_automation_user_name} user to manage resources in this AWS account"
 
   role_requires_mfa   = false
   attach_admin_policy = true
