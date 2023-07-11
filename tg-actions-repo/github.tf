@@ -76,6 +76,18 @@ resource "github_actions_variable" "aws_region" {
   value         = var.aws_region
 }
 
+resource "github_actions_variable" "tf_state_bucket" {
+  repository    = github_repository.this.name
+  variable_name = "TF_STATE_BUCKET"
+  value         = var.state_bucket_name
+}
+
+resource "github_actions_variable" "tf_locks_table" {
+  repository    = github_repository.this.name
+  variable_name = "TF_LOCKS_TABLE"
+  value         = var.locks_table_name
+}
+
 resource "github_repository_file" "codeowners" {
   repository          = github_repository.this.name
   branch              = "main"

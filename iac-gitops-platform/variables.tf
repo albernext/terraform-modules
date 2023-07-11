@@ -80,12 +80,12 @@ variable "tg_automation_role_name" {
   type        = string
 }
 
-variable "tg_automation_state_bucket_name" {
+variable "state_bucket_name" {
   description = "Name of the S3 bucket to create to be used as Terraform state bucket"
   type        = string
 }
 
-variable "tg_automation_locks_table_name" {
+variable "locks_table_name" {
   description = "Name of the DynamoDB table to create to be used as Terraform locks table"
   type        = string
   default     = "tf-locks"

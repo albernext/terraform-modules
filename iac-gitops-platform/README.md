@@ -45,6 +45,8 @@ Deploys full IaC GitOps platform.
 | <a name="input_github_token"></a> [github\_token](#input\_github\_token) | GitHub personal access token used to run Terragrunt | `string` | n/a | yes |
 | <a name="input_infracost_api_key"></a> [infracost\_api\_key](#input\_infracost\_api\_key) | Infracost API key used to run Terragrunt | `string` | n/a | yes |
 | <a name="input_initial_deploy"></a> [initial\_deploy](#input\_initial\_deploy) | Set to true if deploying module for the first time; change to false afterwards | `bool` | n/a | yes |
+| <a name="input_locks_table_name"></a> [locks\_table\_name](#input\_locks\_table\_name) | Name of the DynamoDB table to create to be used as Terraform locks table | `string` | `"tf-locks"` | no |
+| <a name="input_state_bucket_name"></a> [state\_bucket\_name](#input\_state\_bucket\_name) | Name of the S3 bucket to create to be used as Terraform state bucket | `string` | n/a | yes |
 | <a name="input_tf_modules_github_teams"></a> [tf\_modules\_github\_teams](#input\_tf\_modules\_github\_teams) | List of teams to give Write access to the Terraform modules repository to | `set(string)` | n/a | yes |
 | <a name="input_tf_modules_repo_description"></a> [tf\_modules\_repo\_description](#input\_tf\_modules\_repo\_description) | Description of the repository for Terraform modules | `string` | `"Collection of custom Terraform modules"` | no |
 | <a name="input_tf_modules_repo_name"></a> [tf\_modules\_repo\_name](#input\_tf\_modules\_repo\_name) | Name of the repository to create for Terraform modules | `string` | `"terraform-modules"` | no |
@@ -53,12 +55,10 @@ Deploys full IaC GitOps platform.
 | <a name="input_tg_actions_repo_description"></a> [tg\_actions\_repo\_description](#input\_tg\_actions\_repo\_description) | Description of the repository for Terragrunt actions | `string` | `"Workflows to manage infrasturcture using Terragrunt"` | no |
 | <a name="input_tg_actions_repo_name"></a> [tg\_actions\_repo\_name](#input\_tg\_actions\_repo\_name) | Name of the repository to create for Terragrunt actions | `string` | `"terragrunt-actions"` | no |
 | <a name="input_tg_automation_github_teams"></a> [tg\_automation\_github\_teams](#input\_tg\_automation\_github\_teams) | List of teams to give Write access to the Terragrunt automation repository to | `set(string)` | n/a | yes |
-| <a name="input_tg_automation_locks_table_name"></a> [tg\_automation\_locks\_table\_name](#input\_tg\_automation\_locks\_table\_name) | Name of the DynamoDB table to create to be used as Terraform locks table | `string` | `"tf-locks"` | no |
 | <a name="input_tg_automation_repo_codeowners_file"></a> [tg\_automation\_repo\_codeowners\_file](#input\_tg\_automation\_repo\_codeowners\_file) | CODEOWNERS file for the GitHub repository | `string` | n/a | yes |
 | <a name="input_tg_automation_repo_description"></a> [tg\_automation\_repo\_description](#input\_tg\_automation\_repo\_description) | Description of the repository to create for the Terragrunt automation | `string` | `"Platform to manage cloud infrastructure"` | no |
 | <a name="input_tg_automation_repo_name"></a> [tg\_automation\_repo\_name](#input\_tg\_automation\_repo\_name) | Name of the repository to create for the Terragrunt automation | `string` | `"terragrunt-gitops"` | no |
 | <a name="input_tg_automation_role_name"></a> [tg\_automation\_role\_name](#input\_tg\_automation\_role\_name) | Name of the role assumed by Terragrunt in the workflow | `string` | n/a | yes |
-| <a name="input_tg_automation_state_bucket_name"></a> [tg\_automation\_state\_bucket\_name](#input\_tg\_automation\_state\_bucket\_name) | Name of the S3 bucket to create to be used as Terraform state bucket | `string` | n/a | yes |
 | <a name="input_tg_automation_user_name"></a> [tg\_automation\_user\_name](#input\_tg\_automation\_user\_name) | Name of the IAM user to create to be used in the workflow | `string` | n/a | yes |
 | <a name="input_trusted_user_arn"></a> [trusted\_user\_arn](#input\_trusted\_user\_arn) | ARN of a manually created IAM user to do the initial platform creation (required if initial\_deploy is true) | `string` | `null` | no |
 

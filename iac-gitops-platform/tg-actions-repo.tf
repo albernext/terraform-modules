@@ -11,4 +11,6 @@ module "tg_actions_repo" {
   github_token          = var.github_token
   infracost_api_key     = var.infracost_api_key
   aws_region            = var.aws_region
+  state_bucket_name     = var.state_bucket_name
+  locks_table_name      = var.locks_table_name
 }
