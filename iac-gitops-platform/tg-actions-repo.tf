@@ -10,4 +10,5 @@ module "tg_actions_repo" {
   ssh_private_key       = tls_private_key.this.private_key_openssh
   github_token          = var.github_token
   infracost_api_key     = var.infracost_api_key
+  aws_region            = var.aws_region
 }

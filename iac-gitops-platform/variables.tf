@@ -105,3 +105,9 @@ variable "infracost_api_key" {
   description = "Infracost API key used to run Terragrunt"
   type        = string
 }
+
+variable "aws_region" {
+  description = "AWS region to use"
+  type        = string
+  default     = "eu-west-1"
+}
