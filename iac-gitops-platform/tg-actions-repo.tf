@@ -8,4 +8,5 @@ module "tg_actions_repo" {
   aws_access_key_id     = module.tg_automation_repo.access_key_id
   aws_secret_access_key = module.tg_automation_repo.secret_access_key
   ssh_private_key       = tls_private_key.this.private_key_openssh
+  github_token          = var.github_token
 }

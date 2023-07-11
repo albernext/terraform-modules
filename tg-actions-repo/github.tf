@@ -52,6 +52,12 @@ resource "github_actions_secret" "aws_secret_access_key" {
   plaintext_value = var.aws_secret_access_key
 }
 
+resource "github_actions_secret" "github_token" {
+  repository      = github_repository.this.name
+  secret_name     = "GH_TOKEN"
+  plaintext_value = var.github_token
+}
+
 resource "github_actions_secret" "ssh_private_key" {
   repository      = github_repository.this.name
   secret_name     = "SSH_PRIVATE_KEY"

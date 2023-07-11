@@ -29,6 +29,11 @@ variable "aws_secret_access_key" {
 }
 
 variable "ssh_private_key" {
-  description = "SSH private key to be able to access Terraform modules repo"
+  description = "SSH private key used to access Terraform modules repo"
+  type        = string
+}
+
+variable "github_token" {
+  description = "GitHub personal access token used to run Terragrunt"
   type        = string
 }

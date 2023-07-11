@@ -95,3 +95,8 @@ variable "github_org" {
   description = "Name of the GitHub organization where the repositories are stored"
   type        = string
 }
+
+variable "github_token" {
+  description = "GitHub personal access token used to run Terragrunt"
+  type        = string
+}
