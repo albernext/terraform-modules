@@ -56,7 +56,7 @@ resource "github_repository_file" "terragrunt_workflow" {
   file       = ".github/workflows/terragrunt.yaml"
   content = templatefile("${path.module}/files/terragrunt.yaml.tftpl",
     {
-      workflows_repo = var.workflows_repo
+      workflows_repo = "${var.github_org}/${var.workflows_repo}"
     }
   )
   commit_message      = "Add \"Call Terragrunt workflow\" workflow"
