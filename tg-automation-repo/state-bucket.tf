@@ -20,7 +20,8 @@ module "s3_bucket" {
       bucket_key_enabled = false
 
       apply_server_side_encryption_by_default = {
-        sse_algorithm = "AES256"
+        kms_master_key_id = "arn:aws:kms:${local.region}:${local.account_id}:alias/aws/s3"
+        sse_algorithm     = "aws:kms"
       }
     }
   }
@@ -30,6 +31,21 @@ module "s3_bucket" {
 {
     "Version": "2012-10-17",
     "Statement": [
+        {
+            "Sid": "EnforcedTLS",
+            "Effect": "Deny",
+            "Principal": "*",
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::${var.state_bucket_name}",
+                "arn:aws:s3:::${var.state_bucket_name}/*"
+            ],
+            "Condition": {
+                "Bool": {
+                    "aws:SecureTransport": "false"
+                }
+            }
+        },
         {
             "Sid": "RootAccess",
             "Effect": "Allow",
