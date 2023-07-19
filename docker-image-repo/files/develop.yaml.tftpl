@@ -1,0 +1,70 @@
+name: Build and Push image
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  build-and-push:
+    name: Build and Push image
+    runs-on: ubuntu-latest
+
+    env:
+      AWS_REGION: eu-west-1
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1.7.0
+        with:
+          aws-access-key-id: $${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: $${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: $${{ env.AWS_REGION }}
+
+      - name: Read secrets from AWS Secrets Manager
+        run: |
+          echo "GH_TOKEN=$(aws secretsmanager get-secret-value --secret-id ${aws_secret_github_pat_arn} | jq -r '.SecretString')" >> $GITHUB_ENV
+
+      - name: Get release tag
+        id: release-tag
+        run: |
+          latest="$(gh release list | awk 'match($2, /^Latest$/) {print $3}')"                      # Get latest release
+
+          if [[ -n $latest ]]; then                                                                 # If a release marked as latest exists
+            latest_n="$${latest:1}"                                                                 # Remove "v" prefix
+            next="v$(( $latest_n + 1 ))"                                                            # Next release -> "v(latest_release + 1)"
+          else
+            next="v1"                                                                               # If a release marked as latest does not exist, start with v1
+          fi
+
+          latest_pre="$(gh release list | awk 'match($2, /^Pre-release$/) {print $3}' | head -n1)"  # Get latest pre-release (e.g. v2-rc1)
+
+          if grep "^$next-rc[0-9]*$" <<< "$latest_pre"; then                                        # If latest pre-release corresponds to the next release, iterate
+            latest_pre_v="$(echo $latest_pre | awk -F 'rc' '{print $1}')"                           # Take just "v2-"
+            latest_pre_rc="$(echo "$latest_pre" | awk -F 'rc' '{print $2}')"                        # Take what's after rc (e.g. "1")
+            next_pre="$${latest_pre_v}rc$(( $latest_pre_rc + 1 ))"                                   # Next pre-release -> "v2-rc(latest_rc + 1)"
+          else
+            next_pre="$next-rc1"                                                                    # Else, start with rc1
+          fi
+
+          echo "tag=$next_pre" >> $GITHUB_OUTPUT
+      
+      - name: Build image and push to ECR
+        run: |
+          aws ecr get-login-password --region $${{ env.AWS_REGION }} | docker login --username AWS --password-stdin ${aws_account_id}.dkr.ecr.$${{ env.AWS_REGION }}.amazonaws.com
+          aws ecr get-login-password --region $${{ env.AWS_REGION }} | skopeo login --username AWS --password-stdin ${aws_account_id}.dkr.ecr.$${{ env.AWS_REGION }}.amazonaws.com
+
+          docker build -t ${repo} .
+
+          docker tag ${repo}:latest ${aws_account_id}.dkr.ecr.$${{ env.AWS_REGION }}.amazonaws.com/${repo}:$${{ github.sha }}
+          docker push ${aws_account_id}.dkr.ecr.$${{ env.AWS_REGION }}.amazonaws.com/${repo}:$${{ github.sha }}
+
+          skopeo copy docker://${aws_account_id}.dkr.ecr.$${{ env.AWS_REGION }}.amazonaws.com/${repo}:$${{ github.sha }} docker://${aws_account_id}.dkr.ecr.$${{ env.AWS_REGION }}.amazonaws.com/${repo}:develop
+
+          skopeo copy docker://${aws_account_id}.dkr.ecr.$${{ env.AWS_REGION }}.amazonaws.com/${repo}:$${{ github.sha }} docker://${aws_account_id}.dkr.ecr.$${{ env.AWS_REGION }}.amazonaws.com/${repo}:$${{ steps.release-tag.outputs.tag }}
+
+      - name: Create release in GitHub
+        run: |
+          gh release create "$${{ steps.release-tag.outputs.tag }}" --prerelease --title "$${{ steps.release-tag.outputs.tag }}"

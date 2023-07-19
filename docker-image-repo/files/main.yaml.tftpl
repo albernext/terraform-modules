@@ -1,0 +1,48 @@
+name: Tag image
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  tag:
+    name: Tag image
+    runs-on: ubuntu-latest
+
+    env:
+      AWS_REGION: eu-west-1
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1.7.0
+        with:
+          aws-access-key-id: $${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: $${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: $${{ env.AWS_REGION }}
+
+      - name: Read secrets from AWS Secrets Manager
+        run: |
+          echo "GH_TOKEN=$(aws secretsmanager get-secret-value --secret-id ${aws_secret_github_pat_arn} | jq -r '.SecretString')" >> $GITHUB_ENV
+
+      - name: Tag image
+        run: |
+          latest="$(gh release list | awk 'match($2, /^Latest$/) {print $3}')"                      # Get latest release
+
+          if [[ -n $latest ]]; then                                                                 # If a release marked as latest exists
+            latest_n="$${latest:1}"                                                                  # Remove "v" prefix
+            next="v$(( $latest_n + 1 ))"                                                            # Next release -> "v(latest_release + 1)"
+          else
+            next="v1"                                                                               # If a release marked as latest does not exist, create v1
+          fi
+
+          latest_pre="$(gh release list | awk 'match($2, /^Pre-release$/) {print $3}' | head -n1)"  # Get latest pre-release (e.g. v2-rc1)
+          
+          aws ecr get-login-password --region $${{ env.AWS_REGION }} | skopeo login --username AWS --password-stdin ${aws_account_id}.dkr.ecr.$${{ env.AWS_REGION }}.amazonaws.com
+
+          skopeo copy docker://${aws_account_id}.dkr.ecr.$${{ env.AWS_REGION }}.amazonaws.com/${repo}:$latest_pre docker://${aws_account_id}.dkr.ecr.$${{ env.AWS_REGION }}.amazonaws.com/${repo}:$next
+          skopeo copy docker://${aws_account_id}.dkr.ecr.$${{ env.AWS_REGION }}.amazonaws.com/${repo}:$latest_pre docker://${aws_account_id}.dkr.ecr.$${{ env.AWS_REGION }}.amazonaws.com/${repo}:latest
+
+          gh release create "$next" --title "$next"
