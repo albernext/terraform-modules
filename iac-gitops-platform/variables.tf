@@ -96,13 +96,13 @@ variable "github_org" {
   type        = string
 }
 
-variable "github_token" {
-  description = "GitHub personal access token used to run Terragrunt"
+variable "github_token_secret_arn" {
+  description = "ARN of the Secrets Manager secret containing GitHub personal access token used to run Terragrunt"
   type        = string
 }
 
-variable "infracost_api_key" {
-  description = "Infracost API key used to run Terragrunt"
+variable "infracost_api_key_secret_arn" {
+  description = "ARN of the Secrets Manager secret containing Infracost API key used to run Terragrunt"
   type        = string
 }
 

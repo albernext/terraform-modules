@@ -35,6 +35,8 @@ Deploys full IaC GitOps platform.
 | [tls_private_key.this](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
+| [aws_secretsmanager_secret_version.github_token](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret_version) | data source |
+| [aws_secretsmanager_secret_version.infracost_api_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret_version) | data source |
 
 ## Inputs
 
@@ -42,8 +44,8 @@ Deploys full IaC GitOps platform.
 |------|-------------|------|---------|:--------:|
 | <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | AWS region to use | `string` | `"eu-west-1"` | no |
 | <a name="input_github_org"></a> [github\_org](#input\_github\_org) | Name of the GitHub organization where the repositories are stored | `string` | n/a | yes |
-| <a name="input_github_token"></a> [github\_token](#input\_github\_token) | GitHub personal access token used to run Terragrunt | `string` | n/a | yes |
-| <a name="input_infracost_api_key"></a> [infracost\_api\_key](#input\_infracost\_api\_key) | Infracost API key used to run Terragrunt | `string` | n/a | yes |
+| <a name="input_github_token_secret_arn"></a> [github\_token\_secret\_arn](#input\_github\_token\_secret\_arn) | ARN of the Secrets Manager secret containing GitHub personal access token used to run Terragrunt | `string` | n/a | yes |
+| <a name="input_infracost_api_key_secret_arn"></a> [infracost\_api\_key\_secret\_arn](#input\_infracost\_api\_key\_secret\_arn) | ARN of the Secrets Manager secret containing Infracost API key used to run Terragrunt | `string` | n/a | yes |
 | <a name="input_initial_deploy"></a> [initial\_deploy](#input\_initial\_deploy) | Set to true if deploying module for the first time; change to false afterwards | `bool` | n/a | yes |
 | <a name="input_locks_table_name"></a> [locks\_table\_name](#input\_locks\_table\_name) | Name of the DynamoDB table to create to be used as Terraform locks table | `string` | `"tf-locks"` | no |
 | <a name="input_state_bucket_name"></a> [state\_bucket\_name](#input\_state\_bucket\_name) | Name of the S3 bucket to create to be used as Terraform state bucket | `string` | n/a | yes |
