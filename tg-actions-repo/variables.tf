@@ -8,6 +8,11 @@ variable "description" {
   type        = string
 }
 
+variable "visibility" {
+  description = "Visibility of the repository"
+  type        = string
+}
+
 variable "github_teams" {
   description = "List of teams to give Write access to the repository to"
   type        = set(string)

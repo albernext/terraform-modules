@@ -3,6 +3,11 @@ variable "initial_deploy" {
   type        = bool
 }
 
+variable "github_repository_visibility" {
+  description = "Visibility of the GitHub repositories"
+  type        = string
+}
+
 variable "trusted_user_arn" {
   description = "ARN of a manually created IAM user to do the initial platform creation (required if initial_deploy is true)"
   type        = string

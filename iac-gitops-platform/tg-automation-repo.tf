@@ -2,6 +2,7 @@ module "tg_automation_repo" {
   source = "../tg-automation-repo"
 
   repo_name         = var.tg_automation_repo_name
+  visibility        = var.github_repository_visibility
   description       = var.tg_automation_repo_description
   github_teams      = var.tg_automation_github_teams
   codeowners_file   = var.tg_automation_repo_codeowners_file
