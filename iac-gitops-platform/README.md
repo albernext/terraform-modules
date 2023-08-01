@@ -44,6 +44,7 @@ Deploys full IaC GitOps platform.
 |------|-------------|------|---------|:--------:|
 | <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | AWS region to use | `string` | `"eu-west-1"` | no |
 | <a name="input_github_org"></a> [github\_org](#input\_github\_org) | Name of the GitHub organization where the repositories are stored | `string` | n/a | yes |
+| <a name="input_github_repository_visibility"></a> [github\_repository\_visibility](#input\_github\_repository\_visibility) | Visibility of the GitHub repositories | `string` | n/a | yes |
 | <a name="input_github_token_secret_arn"></a> [github\_token\_secret\_arn](#input\_github\_token\_secret\_arn) | ARN of the Secrets Manager secret containing GitHub personal access token used to run Terragrunt | `string` | n/a | yes |
 | <a name="input_infracost_api_key_secret_arn"></a> [infracost\_api\_key\_secret\_arn](#input\_infracost\_api\_key\_secret\_arn) | ARN of the Secrets Manager secret containing Infracost API key used to run Terragrunt | `string` | n/a | yes |
 | <a name="input_initial_deploy"></a> [initial\_deploy](#input\_initial\_deploy) | Set to true if deploying module for the first time; change to false afterwards | `bool` | n/a | yes |
@@ -66,4 +67,6 @@ Deploys full IaC GitOps platform.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_iam_user_arn"></a> [iam\_user\_arn](#output\_iam\_user\_arn) | ARN of the IAM user used in Terragrunt automation repo |
