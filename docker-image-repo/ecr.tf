@@ -3,7 +3,7 @@ resource "aws_ecr_repository" "this" {
 }
 
 resource "aws_ecr_repository_policy" "this" {
-  repository = aws_ecr_repository.this[0].name
+  repository = aws_ecr_repository.this.name
   policy     = <<POLICY
 {
   "Version": "2012-10-17",

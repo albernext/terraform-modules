@@ -130,11 +130,11 @@ resource "github_repository_file" "workflow_main" {
 resource "github_actions_secret" "aws_access_key_id" {
   repository      = var.repo
   secret_name     = "AWS_ACCESS_KEY_ID"
-  plaintext_value = module.service-account.access_key_id
+  plaintext_value = module.iam_user.access_key_id
 }
 
 resource "github_actions_secret" "aws_secret_access_key" {
   repository      = var.repo
   secret_name     = "AWS_SECRET_ACCESS_KEY"
-  plaintext_value = module.service-account.secret_access_key
+  plaintext_value = module.iam_user.secret_access_key
 }
