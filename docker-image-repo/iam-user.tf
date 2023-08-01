@@ -14,6 +14,18 @@ data "aws_iam_policy_document" "this" {
     effect = "Allow"
 
     actions = [
+      "secretsmanager:GetSecretValue"
+    ]
+
+    resources = [
+      var.aws_secret_github_pat_arn
+    ]
+  }
+
+  statement {
+    effect = "Allow"
+
+    actions = [
       "ecr:GetAuthorizationToken"
     ]
 
